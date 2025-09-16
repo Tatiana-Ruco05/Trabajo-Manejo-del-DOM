@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2: Modificar Contenido y Atributos</title>
+</head>
+<body>
+    <a href="https://example.com">Enlace original</a>
+    <h1 class="titulo">Título Original</h1>
+
+    <script>
+        // Paso 1: Seleccionar enlace por etiqueta y cambiar href
+        const enlaces = document.getElementsByTagName('a');
+        const primerEnlace = enlaces[0];  
+        primerEnlace.setAttribute('href', 'https://www.google.com');  
+
+        // Paso 2: Seleccionar por clase y cambiar texto
+        const titulo = document.querySelector('.titulo');
+        titulo.textContent = 'Título Modificado'; 
+
+        // Paso 3: Cambiar fondo del body
+        document.body.style.backgroundColor = 'lightgreen';  
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4: Reemplazar Elemento</title>
+</head>
+<body>
+    <div>Div original que será reemplazado.</div>
+
+    <script>
+        // Crear nuevo <div>
+        const nuevoDiv = document.createElement('div');
+        nuevoDiv.textContent = 'Soy un nuevo div';
+
+        //  Encontrar el primer <div> y reemplazarlo
+        const viejoDiv = document.querySelector('div');
+        const padre = viejoDiv.parentNode;  
+        padre.replaceChild(nuevoDiv, viejoDiv);  
+
+        // Verificar de como quedaria
+        console.log('Nuevo div texto:', nuevoDiv.textContent);  
+    </script>
+</body>
+</html>

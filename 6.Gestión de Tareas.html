@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 6: Gestión de Tareas</title>
+</head>
+<body>
+    <input type="text" id="tareaInput" placeholder="Ingrese una tarea">
+    <button id="agregarBtn">Agregar Tarea</button>
+    <ul id="listaTareas"></ul>  <!-- Lista donde se agregan tareas -->
+
+    <script>
+        const inputTarea = document.getElementById('tareaInput');
+        const botonAgregar = document.getElementById('agregarBtn');
+        const listaTareas = document.getElementById('listaTareas');
+
+        botonAgregar.addEventListener('click', () => {
+            const textoTarea = inputTarea.value.trim();
+            if (textoTarea === '') return;  // No agregar si vacío
+
+            // Crear div para la tarea
+            const divTarea = document.createElement('div');
+            divTarea.innerHTML = `
+                <span>${textoTarea}</span>
+                <button class="checkBtn" style="color: orange;">✅</button>  <!-- Naranja por default -->
+                <button class="eliminarBtn" style="color: red;">❌</button>
+            `;
+
+            // Evento check: Cambiar a verde
+            const checkBtn = divTarea.querySelector('.checkBtn');
+            checkBtn.addEventListener('click', () => {
+                checkBtn.style.color = 'green';  // Cambia color
+            });
+
+            // Evento eliminar: Preguntar y remover
+            const eliminarBtn = divTarea.querySelector('.eliminarBtn');
+            eliminarBtn.addEventListener('click', () => {
+                if (confirm('¿Está seguro de eliminar esta tarea?')) {
+                    divTarea.remove();
+                }
+            });
+
+            // Agregar a la lista (como <li>)
+            const li = document.createElement('li');
+            li.appendChild(divTarea);
+            listaTareas.appendChild(li);
+
+            inputTarea.value = '';
+        });
+    </script>
+</body>
+</html>

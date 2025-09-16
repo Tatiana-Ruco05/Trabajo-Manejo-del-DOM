@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1: Seleccionar Elementos</title>
+</head>
+<body>
+    <div id="info">Este es el texto dentro del div info.</div>
+    <p class="detalle">Este es un párrafo con clase detalle.</p>
+    <p>Otro párrafo simple.</p>
+    <a href="#">Enlace de ejemplo</a>
+
+    <script>
+        // Paso 1: Seleccionar por ID y mostrar en consola
+        const divInfo = document.getElementById('info');
+        console.log('Texto del div info:', divInfo.textContent); 
+
+        // Paso 2: Seleccionar por clase y modificar texto
+        const parrafoDetalle = document.querySelector('.detalle');
+        parrafoDetalle.textContent = 'Este es un detalle modificado';  
+
+        // Paso 3: Seleccionar todos los <p> y cambiar fondo
+        const todosParrafos = document.querySelectorAll('p');
+        todosParrafos.forEach(p => {
+            p.style.backgroundColor = 'lightblue';  
+        });
+    </script>
+</body>
+</html>

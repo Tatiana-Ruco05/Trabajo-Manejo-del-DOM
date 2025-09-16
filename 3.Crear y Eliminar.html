@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3: Crear y Eliminar Elementos</title>
+</head>
+<body>
+    <p>Párrafo existente (será eliminado).</p>
+    <button id="eliminar">Eliminar primer párrafo</button>
+
+    <script>
+        // Paso 1: Crear nuevo <p> y agregarlo al body
+        const nuevoParrafo = document.createElement('p');
+        nuevoParrafo.textContent = 'Este es un párrafo creado dinámicamente';
+        document.body.appendChild(nuevoParrafo);  
+
+        // Paso 2: Agregar evento al botón para eliminar
+        const botonEliminar = document.querySelector('#eliminar');
+        botonEliminar.addEventListener('click', () => {
+            const primerParrafo = document.querySelector('p');
+            if (primerParrafo) {
+                primerParrafo.remove(); 
+            }
+        });
+    </script>
+</body>
+</html>
