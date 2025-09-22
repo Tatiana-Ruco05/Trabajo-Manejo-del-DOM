@@ -2,53 +2,102 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear y eliminar</title>
+    <title> Crear y Eliminar Elementos Dinámicamente</title>
 </head>
 <body>
     <h1>Crear y eliminar</h1>
-    <input id="textoInput" placeholder="Escribe texto...">
+    <input id="textoInput" placeholder="Escribe texto..." type="text">
     <button id="crear">+ Crear</button>
-    <button id="eliminar">Eliminar </button>
+    <button id="eliminar">Eliminar</button>
+    
+    
+    <p id="parrafoCreado">Parrafo de prueba</p>
     
     <div id="parrafos"></div>
 
     <script>
-        const $ = id => document.getElementById(id);
-        const contenedor = $('parrafos');
-        const input = $('textoInput');
-        let contador = 1;
-
-        // Crear párrafo con numeracion
-        function crearP() {
-            const texto = input.value.trim();
-            if (!texto) return alert('¡Escribe texto!');
+        
+        window.addEventListener('load', function() {
             
-            const p = document.createElement('p');
-            p.innerHTML = `<strong>P${contador}:</strong> ${texto} `;
-            contenedor.appendChild(p);
-            input.value = '';
-            contador++;
-        }
+            // Crear el párrafo de prueba al cargar la página para que se vea y no se pierda
+            const contenedor = document.getElementById('parrafos');
+            const parrafoPrueba = document.createElement('p');
+            parrafoPrueba.textContent = 'JAVASCRIPT';
+            parrafoPrueba.style.margin = '5px 0';
+            contenedor.appendChild(parrafoPrueba);
 
-        // Eliminar párrafo individual
-        function eliminarIndividual(btn) {
-            if (confirm('¿Eliminar?')) btn.parentElement.remove();
-        }
+            // Función auxiliar para obtener elementos por ID
+            const $ = id => document.getElementById(id);
+            
+            
+            const input = $('textoInput');
+            const botonCrear = $('crear');
+            const botonEliminar = $('eliminar');
 
-        // elimina el parrafo y no vuelve aparecer mas
-        function eliminarPrimero() {
-            const primer = contenedor.querySelector('p');
-            if (primer) primer.remove();
-            // es para que cuando le de al de eliminar y tenga un parrafo escrito le de un advertencia
-            else alert('¡No hay párrafos!');
-        }
+            // Contador parr
+            let contador = 1;
 
-        
-        $('crear').onclick = crearP;
-        $('eliminar').onclick = eliminarPrimero; 
-        
-        input.onkeypress = e => e.key === 'Enter' && crearP();
-        input.onfocus = () => input.select();
+            // Función para crear párrafo que desees
+            function crearParrafo() {
+                const texto = input.value.trim();
+                if (!texto) {
+                    alert('¡Escribe texto!');
+                    input.focus();
+                    return;
+                }
+                
+                const p = document.createElement('p');
+                p.innerHTML = `<strong>P${contador}:</strong> ${texto}`;
+                p.style.margin = '5px 0';
+                p.style.padding = '5px';
+                p.style.border = '1px solid #ccc';
+                p.style.borderRadius = '3px';
+                
+                // Agregar botón de eliminar individual
+                const btnEliminar = document.createElement('button');
+                btnEliminar.style.cssText = `
+            
+                `;
+             
+                
+                p.appendChild(btnEliminar);
+                contenedor.appendChild(p);
+                input.value = '';
+                input.focus();
+                contador++;
+            }
+
+            // Función para eliminar el primer párrafo de uno en uno
+            function eliminarPrimerParrafo() {
+                const primerParrafo = document.querySelector('p');
+                if (primerParrafo) {
+                    primerParrafo.remove();
+                    alert('¡Primer párrafo eliminado!');
+                } else {
+                    alert('¡No hay párrafos!');
+                }
+            }
+
+            // utilizamos el  addEventListene
+            botonCrear.addEventListener('click', crearParrafo);
+            botonEliminar.addEventListener('click', eliminarPrimerParrafo);
+            
+            // es me ayuda para que con enter me deje crear
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    crearParrafo();
+                }
+            });
+            
+            
+            input.addEventListener('focus', function() {
+                this.select();
+            });
+
+            
+            input.focus();
+        });
     </script>
 </body>
 </html>
