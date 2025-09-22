@@ -2,24 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ejercicio 2: Modificar Contenido y Atributos</title>
+    <title>Cambiar Título</title>
 </head>
 <body>
-    <a href="https://example.com">Enlace original</a>
     <h1 class="titulo">Título Original</h1>
 
+    <br><br>
+    <label for="nuevoTexto">Nuevo texto para el título:</label>
+    <input type="text" id="nuevoTexto" placeholder="Escribe aquí tu nuevo texto">
+    <button id="cambiarBtn">Cambiar Título</button>
+
     <script>
-        // Paso 1: Seleccionar enlace por etiqueta y cambiar href
-        const enlaces = document.getElementsByTagName('a');
-        const primerEnlace = enlaces[0];  
-        primerEnlace.setAttribute('href', 'https://www.google.com');  
-
-        // Paso 2: Seleccionar por clase y cambiar texto
         const titulo = document.querySelector('.titulo');
-        titulo.textContent = 'Título Modificado'; 
+        const inputTexto = document.getElementById('nuevoTexto');
+        const botonCambiar = document.getElementById('cambiarBtn');
 
-        // Paso 3: Cambiar fondo del body
-        document.body.style.backgroundColor = 'lightgreen';  
+        botonCambiar.addEventListener('click', function() {
+            const textoNuevo = inputTexto.value.trim();
+            
+            if (textoNuevo !== '') {
+                titulo.textContent = textoNuevo;
+                inputTexto.value = '';
+                inputTexto.placeholder = '¡Texto cambiado! Escribe otro...';
+            } else {
+                alert('¡Por favor escribe algo!');
+            }
+        });
+
+        // Permitir cambiar con Enter
+        inputTexto.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                botonCambiar.click();
+            }
+        });
     </script>
 </body>
 </html>

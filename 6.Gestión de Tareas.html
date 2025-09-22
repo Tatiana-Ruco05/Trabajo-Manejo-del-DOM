@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ejercicio 6: Gestión de Tareas</title>
+    <title> Gestión de Tareas</title>
 </head>
 <body>
     <input type="text" id="tareaInput" placeholder="Ingrese una tarea">
     <button id="agregarBtn">Agregar Tarea</button>
-    <ul id="listaTareas"></ul>  <!-- Lista donde se agregan tareas -->
+    <ul id="listaTareas"></ul>  <!-- cuadro pra alisatar las tareas-->
 
     <script>
         const inputTarea = document.getElementById('tareaInput');
@@ -16,20 +16,24 @@
 
         botonAgregar.addEventListener('click', () => {
             const textoTarea = inputTarea.value.trim();
-            if (textoTarea === '') return;  // No agregar si vacío
+            if (textoTarea === '') return;  // se utiliza para no agregar si el cuadro esta vacio
 
-            // Crear div para la tarea
+            // Cse crea un div para la tarea y se crean los botonnes de chulo y x
             const divTarea = document.createElement('div');
             divTarea.innerHTML = `
                 <span>${textoTarea}</span>
-                <button class="checkBtn" style="color: orange;">✅</button>  <!-- Naranja por default -->
+                <button class="checkBtn" style="color: subrayar;">✅</button> 
                 <button class="eliminarBtn" style="color: red;">❌</button>
             `;
 
-            // Evento check: Cambiar a verde
+            // Evento check: Toggle entre naranja/verde + tachado
             const checkBtn = divTarea.querySelector('.checkBtn');
+            const span = divTarea.querySelector('span');
+            let isChecked = false;
             checkBtn.addEventListener('click', () => {
-                checkBtn.style.color = 'green';  // Cambia color
+                isChecked = !isChecked;
+                span.style.textDecoration = isChecked ? 'line-through' : 'none';
+                span.style.color = isChecked ? 'gray' : 'black';
             });
 
             // Evento eliminar: Preguntar y remover
