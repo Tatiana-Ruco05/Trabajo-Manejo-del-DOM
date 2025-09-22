@@ -1,56 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title> Gestión de Tareas</title>
+    <title>Gestión de Tareas</title>
 </head>
 <body>
-    <input type="text" id="tareaInput" placeholder="Ingrese una tarea">
-    <button id="agregarBtn">Agregar Tarea</button>
-    <ul id="listaTareas"></ul>  <!-- cuadro pra alisatar las tareas-->
+    <h1>Gestión de Tareas</h1>
+    <input id="tareaInput" placeholder="Escribe una tarea">
+    <button id="agregar">Agregar</button>
+    <ul id="lista"></ul>
 
     <script>
-        const inputTarea = document.getElementById('tareaInput');
-        const botonAgregar = document.getElementById('agregarBtn');
-        const listaTareas = document.getElementById('listaTareas');
+        const input = document.getElementById('tareaInput');
+        const btnAgregar = document.getElementById('agregar');
+        const lista = document.getElementById('lista');
 
-        botonAgregar.addEventListener('click', () => {
-            const textoTarea = inputTarea.value.trim();
-            if (textoTarea === '') return;  // se utiliza para no agregar si el cuadro esta vacio
+        btnAgregar.onclick = function() {
+            const texto = input.value.trim();
+            if (!texto) return;
 
-            // Cse crea un div para la tarea y se crean los botonnes de chulo y x
-            const divTarea = document.createElement('div');
-            divTarea.innerHTML = `
-                <span>${textoTarea}</span>
-                <button class="checkBtn" style="color: subrayar;">✅</button> 
-                <button class="eliminarBtn" style="color: red;">❌</button>
-            `;
-
-            // Evento check: Toggle entre naranja/verde + tachado
-            const checkBtn = divTarea.querySelector('.checkBtn');
-            const span = divTarea.querySelector('span');
-            let isChecked = false;
-            checkBtn.addEventListener('click', () => {
-                isChecked = !isChecked;
-                span.style.textDecoration = isChecked ? 'line-through' : 'none';
-                span.style.color = isChecked ? 'gray' : 'black';
-            });
-
-            // Evento eliminar: Preguntar y remover
-            const eliminarBtn = divTarea.querySelector('.eliminarBtn');
-            eliminarBtn.addEventListener('click', () => {
-                if (confirm('¿Está seguro de eliminar esta tarea?')) {
-                    divTarea.remove();
-                }
-            });
-
-            // Agregar a la lista (como <li>)
+            // Crear li
             const li = document.createElement('li');
-            li.appendChild(divTarea);
-            listaTareas.appendChild(li);
+            
+            // Esto me ayuda para que lo que escriba se pueda crear
+            const span = document.createElement('span');
+            span.textContent = texto;
+            li.appendChild(span);
 
-            inputTarea.value = '';
-        });
+            // Crear botón chulito
+            const check = document.createElement('button');
+            check.textContent = '✓';
+            check.style.background = 'orange';
+            check.style.color = 'white';
+            check.style.border = 'none';
+            li.appendChild(check);
+
+            // Crear botón eliminar con x
+            const eliminar = document.createElement('button');
+            eliminar.textContent = 'X';
+            eliminar.style.background = 'red';
+            eliminar.style.color = 'white';
+            eliminar.style.border = 'none';
+            li.appendChild(eliminar);
+
+            
+            let hecha = false;
+            check.onclick = function() {
+                hecha = !hecha;
+                if (hecha) {
+                    check.style.background = 'green';
+                    span.style.textDecoration = 'line-through';
+                } else {
+                    check.style.background = 'orange';
+                    span.style.textDecoration = 'none';
+                }
+            };
+
+            // Eliminar la tarea puesta
+
+            eliminar.onclick = function() {
+                if (confirm('¿Eliminar tarea?')) {
+                    li.remove();
+                }
+            };
+        
+
+
+            lista.appendChild(li);
+            input.value = '';
+            input.focus();
+        };
+
+        input.onkeypress = function(e) {
+            if (e.key === 'Enter') btnAgregar.click();
+        };
     </script>
 </body>
 </html>
+
+         
